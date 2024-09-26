@@ -152,10 +152,6 @@ By running these scripts, you will obtain:
   - Visualization of how phonemes cluster based on their features.
   - Analysis of which features are most prominent within each cluster.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgements
 
 - **Bruce Hayes (2009)**: For providing the original phoneme feature data.
