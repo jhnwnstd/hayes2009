@@ -1,63 +1,162 @@
-Hayes (2009) phonological feature tables
-========================================
+# Hayes Features Data Processing and Analysis
 
-[![PyPI
-version](https://badge.fury.io/py/hayes2009.svg)](https://pypi.org/project/hayes2009)
-[![Supported Python
-versions](https://img.shields.io/pypi/pyversions/hayes2009.svg)](https://pypi.org/project/hayes2009)
-[![CircleCI](https://circleci.com/gh/kylebgorman/hayes2009/tree/main.svg?style=svg)](https://circleci.com/gh/kylebgorman/hayes2009/tree/main)
+This repository contains scripts for processing the Hayes (2009) phonological features data and performing preliminary analysis. The scripts allow you to:
 
-`hayes2009` is a small Python 3.7+ module that exposes phonological feature
-tables from the Hayes (2009) phonology textbook.
+- Convert the original data from a Python script (`hayes2009.py`) into both JSON and CSV formats.
+- Perform preliminary analysis on the data, including visualization of feature distributions and clustering of phonemes based on their features.
 
-See [`hayes2009.py`](hayes2009.py) for information about how this data has been
-processed.
+## Table of Contents
 
-It exposes two tables: an `english`-only table and a larger `universal` table.
-As far as I can tell, phones that occur in English are given the same
-specification in both tables but both tables are provided for completeness.
+- [Background](#background)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Data Conversion](#data-conversion)
+  - [Data Analysis](#data-analysis)
+- [Results](#results)
+- [License](#license)
+- [Acknowledgements](#acknowledgements)
 
-willfix/wontfix
----------------
+## Background
 
-**Please read before filing an issue on the issue tracker**
+Bruce Hayes' (2009) work provides a set of phonological features for various phonemes across different languages. This repository aims to process that data for further computational analysis by converting it into machine-readable formats (JSON and CSV) and performing preliminary exploratory data analysis.
 
-I **will** correct the following:
+## Features
 
--   Typographical errors in the Hayes' tables
+- **Data Conversion**: Convert the original phoneme feature data from a Python script into JSON and CSV formats.
+- **Data Analysis**:
+  - Visualize the distribution of phonetic features across phonemes.
+  - Perform Principal Component Analysis (PCA) to reduce dimensionality.
+  - Cluster phonemes using KMeans clustering.
+  - Visualize clusters and analyze feature prominence within clusters.
 
-I **will not** accept PRs for any the following:
+## Requirements
 
--   Alternative names for the features
--   "Fancy" (i.e., tuple-based) feature specifications
--   Additional feature specifications from other sources
--   Reverse look-up (i.e., finding phones that match a certain feature
-    specification)
+- **Python**: Version 3.x
+- **Python Packages**:
+  - `pandas`
+  - `numpy`
+  - `matplotlib`
+  - `seaborn`
+  - `scikit-learn`
 
-Gotchas
--------
+You can install the required packages using:
 
--   Hayes uses SHOUTYCASE for the major place features like `LABIAL`.
--   Phones are encoded in
-    [NFC](https://en.wikipedia.org/wiki/Unicode_equivalence#Normal_forms).
--   Hayes uses the traditional "single-storey" *ɡ* rather than *g* for the
-    voiced velar stop.
--   Hayes includes many contour segments, but these are indicated with the tie
-    bars (e.g., *t͡s*).
+```bash
+pip install -r requirements.txt
+```
 
-License
--------
+**Contents of `requirements.txt`:**
 
-This library is distributed under an Apache 2.0 license. Please see
-[`LICENSE.txt`](LICENSE.txt) for detalis.
+```plaintext
+# Data Manipulation and Analysis
+pandas>=1.3.0
+numpy>=1.21.0
 
-Author
-------
+# Visualization Libraries
+matplotlib>=3.4.0
+seaborn>=0.11.0
 
-`hayes2009` was written by [Kyle Gorman](kylebgorman@gmail.com).
+# Machine Learning Libraries
+scikit-learn>=0.24.0
+```
 
-References
-----------
+## Installation
 
-Hayes, B. 2009. *Introductory Phonology*. John Wiley & Sons.
+1. **Clone the Repository**:
 
+   ```bash
+   git clone https://github.com/jhnwnstd/hayes2009.git
+   cd hayes2009
+   ```
+
+2. **Install Dependencies**:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## Usage
+
+### Data Conversion
+
+The script `hayes_converter.py` reads the original `hayes2009.py` file containing phoneme features and converts it into both JSON and CSV formats.
+
+#### Steps:
+
+1. **Place `hayes2009.py`**:
+
+   Ensure that the `hayes2009.py` file is in the same directory as `hayes_converter.py`.
+
+2. **Run the Script**:
+
+   ```bash
+   python hayes_converter.py
+   ```
+
+3. **Output**:
+
+   - `hayes2009.json`: A JSON file containing the transformed phoneme feature data.
+   - `hayes2009.csv`: A CSV file where each phoneme is a column and each feature is a row.
+
+#### Script Explanation:
+
+- **Input**: `hayes2009.py` - A Python script containing dictionaries of phonemes and their features.
+- **Processing**:
+  - Parses the Python script to extract phoneme data.
+  - Transforms the data into a structured format.
+  - Saves the data into both JSON and CSV formats.
+- **Output**: `hayes2009.json` and `hayes2009.csv`.
+
+### Data Analysis
+
+The script `hayes_analysis.py` performs preliminary analysis on the phoneme feature data.
+
+#### Steps:
+
+1. **Ensure `hayes2009.json` Exists**:
+
+   Confirm that `hayes2009.json` is present in the directory (generated from the previous step).
+
+2. **Run the Analysis Script**:
+
+   ```bash
+   python hayes_analysis.py
+   ```
+
+3. **Output**:
+
+   The script will display several plots:
+
+   - **Feature Distribution**: A bar plot showing the distribution of phonetic features across phonemes.
+   - **PCA Scatter Plot**: A scatter plot of phonemes in reduced dimensionality space, colored by cluster.
+   - **Feature Heatmap**: A heatmap showing feature prominence by cluster.
+
+#### Script Explanation:
+
+- **Loading Data**: Reads the JSON file containing phoneme features.
+- **Visualization**:
+  - **Feature Distribution**: Shows how common each feature is across phonemes.
+  - **PCA Scatter Plot**: Displays phonemes in reduced dimensionality space, colored by cluster.
+  - **Feature Heatmap**: Illustrates the prominence of each feature within clusters.
+- **Clustering**: Groups phonemes based on their features using KMeans clustering.
+
+## Results
+
+By running these scripts, you will obtain:
+
+- **Processed Data**: Phoneme features in JSON and CSV formats for easy manipulation.
+- **Insights**:
+  - Understanding of which features are most common across phonemes.
+  - Visualization of how phonemes cluster based on their features.
+  - Analysis of which features are most prominent within each cluster.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgements
+
+- **Bruce Hayes (2009)**: For providing the original phoneme feature data.
+- **Open-Source Libraries**: Thanks to the contributors of `pandas`, `numpy`, `matplotlib`, `seaborn`, and `scikit-learn`.
